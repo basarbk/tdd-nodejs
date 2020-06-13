@@ -1,0 +1,30 @@
+{
+  "git.decorations.enabled": false,
+  "scm.diffDecorations": "none",
+  "files.exclude": {
+    ".vscode": true,
+    "node_modules": true,
+    "package-lock.json": true,
+	"yarn.lock": true,
+	".gitignore": true,
+    "README.md": true,
+    ".prettierrc": true
+  },
+  "editor.formatOnType": true,
+  "breadcrumbs.filePath": "off",
+  "breadcrumbs.symbolPath": "off",
+  "breadcrumbs.enabled": false,
+  "workbench.statusBar.visible": false,
+  "editor.wordBasedSuggestions": false,
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.suggest.filterGraceful": false,
+  "editor.lineNumbers": "off",
+  "problems.decorations.enabled": false,
+  "workbench.activityBar.visible": false,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "zenMode.centerLayout": false,
+  "editor.find.addExtraSpaceOnTop": false,
+  "debug.showInlineBreakpointCandidates": false,
+  "editor.glyphMargin": false
+}
