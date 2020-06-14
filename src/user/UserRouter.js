@@ -40,8 +40,12 @@ router.post(
       errors.array().forEach((error) => (validationErrors[error.param] = req.t(error.msg)));
       return res.status(400).send({ validationErrors: validationErrors });
     }
-    await UserService.save(req.body);
-    return res.send({ message: req.t('user_create_success') });
+    try {
+      await UserService.save(req.body);
+      return res.send({ message: req.t('user_create_success') });
+    } catch (err) {
+      return res.status(502).send({ message: req.t(err.message) });
+    }
   }
 );
 
