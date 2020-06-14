@@ -1,0 +1,11 @@
+{
+  "username_null": "Kullanıcı adı boş olamaz",
+  "username_size": "En az 4 en fazla 32 karakter olmalı",
+  "email_null": "E-Posta boş olamaz",
+  "email_invalid": "E-Posta geçerli değil",
+  "password_null": "Şifre boş olamaz",
+  "password_size": "Şifre en az 6 karakter olmalı",
+  "password_pattern": "Şifrede en az 1 büyük, 1 küçük harf ve 1 sayı bulunmalıdır",
+  "email_inuse": "Bu E-Posta kullanılıyor",
+  "user_create_success": "Kullanıcı oluşturuldu"
+}
