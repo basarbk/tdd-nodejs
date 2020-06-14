@@ -59,7 +59,11 @@ router.post('/api/1.0/users/token/:token', async (req, res, next) => {
 });
 
 router.get('/api/1.0/users', async (req, res) => {
-  const users = await UserService.getUsers();
+  let page = req.query.page ? Number.parseInt(req.query.page) : 0;
+  if (page < 0) {
+    page = 0;
+  }
+  const users = await UserService.getUsers(page);
   res.send(users);
 });
 

@@ -60,4 +60,15 @@ describe('Listing Users', () => {
     const response = await getUsers();
     expect(response.body.totalPages).toBe(2);
   });
+  it('returns second page users and page indicator when page is set as 1 in request parameter', async () => {
+    await addUsers(11);
+    const response = await getUsers().query({ page: 1 });
+    expect(response.body.content[0].username).toBe('user11');
+    expect(response.body.page).toBe(1);
+  });
+  it('returns first page when page is set below zero as request parameter', async () => {
+    await addUsers(11);
+    const response = await getUsers().query({ page: -5 });
+    expect(response.body.page).toBe(0);
+  });
 });
