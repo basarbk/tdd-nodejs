@@ -14,5 +14,6 @@
   "validation_failure": "Girilen değerler uygun değil",
   "user_not_found": "Kullanıcı bulunamadı",
   "authentication_failure": "Kullanıcı bilgileri hatalı",
-  "inactive_authentication_failure": "Hesabınız aktif değil"
+  "inactive_authentication_failure": "Hesabınız aktif değil",
+  "unauthroized_user_update": "Kullanıcıyı güncelleme yetkiniz bulunmamaktadır"
 }

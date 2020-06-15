@@ -14,5 +14,6 @@
   "validation_failure": "Validation Failure",
   "user_not_found": "User not found",
   "authentication_failure": "Incorrect credentials",
-  "inactive_authentication_failure": "Account is inactive"
+  "inactive_authentication_failure": "Account is inactive",
+  "unauthroized_user_update": "You are not authorized to update user"
 }
