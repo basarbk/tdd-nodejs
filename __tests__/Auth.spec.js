@@ -37,12 +37,12 @@ describe('Authentication', () => {
     expect(response.status).toBe(200);
   });
 
-  it('returns only user id and username when login success', async () => {
+  it('returns user id, username and token when login success', async () => {
     const user = await addUser();
     const response = await postAuthentication({ email: 'user1@mail.com', password: 'P4ssword' });
     expect(response.body.id).toBe(user.id);
     expect(response.body.username).toBe(user.username);
-    expect(Object.keys(response.body)).toEqual(['id', 'username']);
+    expect(Object.keys(response.body)).toEqual(['id', 'username', 'token']);
   });
   it('returns 401 when user does not exist', async () => {
     const response = await postAuthentication({ email: 'user1@mail.com', password: 'P4ssword' });
@@ -105,5 +105,10 @@ describe('Authentication', () => {
   it('returns 401 when password is not valid', async () => {
     const response = await postAuthentication({ email: 'user1@mail.com' });
     expect(response.status).toBe(401);
+  });
+  it('returns token in response body when credentials are correct', async () => {
+    await addUser();
+    const response = await postAuthentication({ email: 'user1@mail.com', password: 'P4ssword' });
+    expect(response.body.token).not.toBeUndefined();
   });
 });
