@@ -24,6 +24,9 @@ User.init(
     activationToken: {
       type: Sequelize.STRING,
     },
+    passwordResetToken: {
+      type: Sequelize.STRING,
+    },
   },
   {
     sequelize,
