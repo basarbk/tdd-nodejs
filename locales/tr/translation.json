@@ -16,5 +16,6 @@
   "authentication_failure": "Kullanıcı bilgileri hatalı",
   "inactive_authentication_failure": "Hesabınız aktif değil",
   "unauthroized_user_update": "Kullanıcıyı güncelleme yetkiniz bulunmamaktadır",
-  "unauthroized_user_delete": "Kullanıcıyı silme yetkiniz bulunmamaktadır"
+  "unauthroized_user_delete": "Kullanıcıyı silme yetkiniz bulunmamaktadır",
+  "email_not_inuse": "E-posta bulunamadı"
 }
