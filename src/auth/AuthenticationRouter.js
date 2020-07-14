@@ -29,6 +29,7 @@ router.post('/api/1.0/auth', check('email').isEmail(), async (req, res, next) =>
   res.send({
     id: user.id,
     username: user.username,
+    image: user.image,
     token,
   });
 });
