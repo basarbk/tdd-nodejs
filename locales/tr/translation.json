@@ -18,5 +18,6 @@
   "unauthroized_user_update": "Kullanıcıyı güncelleme yetkiniz bulunmamaktadır",
   "unauthroized_user_delete": "Kullanıcıyı silme yetkiniz bulunmamaktadır",
   "email_not_inuse": "E-posta bulunamadı",
-  "password_reset_request_success": "Şifrenizi yenilemek için e-postanızı kontrol edin"
+  "password_reset_request_success": "Şifrenizi yenilemek için e-postanızı kontrol edin",
+  "unauthroized_password_reset": "Şifrenizi yenileme yetkiniz bulunmuyor. Lütfen şifre yenileme adımlarını tekrarlayınız."
 }
