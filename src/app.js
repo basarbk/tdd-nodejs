@@ -7,6 +7,13 @@ const middleware = require('i18next-http-middleware');
 const errorHandler = require('./error/ErrorHandler');
 const tokenAuthentication = require('./middleware/tokenAuthentication');
 const FileService = require('./file/FileService');
+const config = require('config');
+const path = require('path');
+
+const { uploadDir, profileDir } = config;
+const profileFolder = path.join('.', uploadDir, profileDir);
+
+const ONE_YEAR_IN_MILLIS = 365 * 24 * 60 * 60 * 1000;
 
 i18next
   .use(Backend)
@@ -31,6 +38,8 @@ const app = express();
 app.use(middleware.handle(i18next));
 
 app.use(express.json());
+
+app.use('/images', express.static(profileFolder, { maxAge: ONE_YEAR_IN_MILLIS }));
 
 app.use(tokenAuthentication);
 
