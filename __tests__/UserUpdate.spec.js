@@ -7,6 +7,10 @@ const en = require('../locales/en/translation.json');
 const tr = require('../locales/tr/translation.json');
 const fs = require('fs');
 const path = require('path');
+const config = require('config');
+
+const { uploadDir, profileDir } = config;
+const profileDirectory = path.join('.', uploadDir, profileDir);
 
 beforeAll(async () => {
   await sequelize.sync();
@@ -14,6 +18,13 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await User.destroy({ truncate: { cascade: true } });
+});
+
+afterAll(() => {
+  const files = fs.readdirSync(profileDirectory);
+  for (const file of files) {
+    fs.unlinkSync(path.join(profileDirectory, file));
+  }
 });
 
 const activeUser = { username: 'user1', email: 'user1@mail.com', password: 'P4ssword', inactive: false };
@@ -42,6 +53,11 @@ const putUser = async (id = 5, body = null, options = {}) => {
     agent.set('Authorization', `Bearer ${options.token}`);
   }
   return agent.send(body);
+};
+
+const readFileAsBase64 = () => {
+  const filePath = path.join('.', '__tests__', 'resources', 'test-png.png');
+  return fs.readFileSync(filePath, { encoding: 'base64' });
 };
 
 describe('User Update', () => {
@@ -112,8 +128,7 @@ describe('User Update', () => {
     expect(response.status).toBe(403);
   });
   it('saves the user image when update contains image as base64', async () => {
-    const filePath = path.join('.', '__tests__', 'resources', 'test-png.png');
-    const fileInBase64 = fs.readFileSync(filePath, { encoding: 'base64' });
+    const fileInBase64 = readFileAsBase64();
     const savedUser = await addUser();
     const validUpdate = { username: 'user1-updated', image: fileInBase64 };
     await putUser(savedUser.id, validUpdate, {
@@ -124,13 +139,24 @@ describe('User Update', () => {
     expect(inDBUser.image).toBeTruthy();
   });
   it('returns success body having only id, username, email and image', async () => {
-    const filePath = path.join('.', '__tests__', 'resources', 'test-png.png');
-    const fileInBase64 = fs.readFileSync(filePath, { encoding: 'base64' });
+    const fileInBase64 = readFileAsBase64();
     const savedUser = await addUser();
     const validUpdate = { username: 'user1-updated', image: fileInBase64 };
     const response = await putUser(savedUser.id, validUpdate, {
       auth: { email: savedUser.email, password: 'P4ssword' },
     });
     expect(Object.keys(response.body)).toEqual(['id', 'username', 'email', 'image']);
+  });
+  it('saves the user image to upload folder and stores filename in user when update has image', async () => {
+    const fileInBase64 = readFileAsBase64();
+    const savedUser = await addUser();
+    const validUpdate = { username: 'user1-updated', image: fileInBase64 };
+    await putUser(savedUser.id, validUpdate, {
+      auth: { email: savedUser.email, password: 'P4ssword' },
+    });
+
+    const inDBUser = await User.findOne({ where: { id: savedUser.id } });
+    const profileImagePath = path.join(profileDirectory, inDBUser.image);
+    expect(fs.existsSync(profileImagePath)).toBe(true);
   });
 });

@@ -1,16 +1,25 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('config');
+const { randomString } = require('../shared/generator');
+
+const { uploadDir, profileDir } = config;
+const profileFolder = path.join('.', uploadDir, profileDir);
 
 const createFolders = () => {
-  const { uploadDir, profileDir } = config;
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
   }
-  const profileFolder = path.join('.', uploadDir, profileDir);
   if (!fs.existsSync(profileFolder)) {
     fs.mkdirSync(profileFolder);
   }
 };
 
-module.exports = { createFolders };
+const saveProfileImage = async (base64File) => {
+  const filename = randomString(32);
+  const filePath = path.join(profileFolder, filename);
+  await fs.promises.writeFile(filePath, base64File, 'base64');
+  return filename;
+};
+
+module.exports = { createFolders, saveProfileImage };
