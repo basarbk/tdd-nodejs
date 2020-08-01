@@ -76,16 +76,29 @@ router.get('/api/1.0/users/:id', async (req, res, next) => {
   }
 });
 
-router.put('/api/1.0/users/:id', async (req, res, next) => {
-  const authenticatedUser = req.authenticatedUser;
+router.put(
+  '/api/1.0/users/:id',
+  check('username')
+    .notEmpty()
+    .withMessage('username_null')
+    .bail()
+    .isLength({ min: 4, max: 32 })
+    .withMessage('username_size'),
+  async (req, res, next) => {
+    const authenticatedUser = req.authenticatedUser;
 
-  // eslint-disable-next-line eqeqeq
-  if (!authenticatedUser || authenticatedUser.id != req.params.id) {
-    return next(new ForbiddenException('unauthroized_user_update'));
+    // eslint-disable-next-line eqeqeq
+    if (!authenticatedUser || authenticatedUser.id != req.params.id) {
+      return next(new ForbiddenException('unauthroized_user_update'));
+    }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new ValidationException(errors.array()));
+    }
+    const user = await UserService.updateUser(req.params.id, req.body);
+    return res.send(user);
   }
-  const user = await UserService.updateUser(req.params.id, req.body);
-  return res.send(user);
-});
+);
 
 router.delete('/api/1.0/users/:id', async (req, res, next) => {
   const authenticatedUser = req.authenticatedUser;
