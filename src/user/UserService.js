@@ -76,6 +76,9 @@ const getUser = async (id) => {
 const updateUser = async (id, updatedBody) => {
   const user = await User.findOne({ where: { id: id } });
   user.username = updatedBody.username;
+  if (user.image) {
+    await FileService.deleteProfileImage(user.image);
+  }
   user.image = await FileService.saveProfileImage(updatedBody.image);
   await user.save();
   return {
