@@ -6,6 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon index",
     "test": "cross-env NODE_ENV=test jest --watch",
+    "posttest": "cross-env NODE_ENV=test node test-cleanup",
     "lint": "eslint ."
   },
   "author": "Basar Buyukkahraman",
