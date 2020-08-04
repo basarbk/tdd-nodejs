@@ -24,6 +24,8 @@
     "i18next-fs-backend": "^1.0.6",
     "i18next-http-middleware": "^2.1.2",
     "nodemailer": "^6.4.8",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.12",
     "sequelize-cli": "^6.2.0",
     "sqlite3": "^4.2.0"
