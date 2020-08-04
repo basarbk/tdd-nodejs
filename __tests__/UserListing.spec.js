@@ -7,7 +7,9 @@ const en = require('../locales/en/translation.json');
 const tr = require('../locales/tr/translation.json');
 
 beforeAll(async () => {
-  await sequelize.sync();
+  if (process.env.NODE_ENV === 'test') {
+    await sequelize.sync();
+  }
 });
 
 beforeEach(async () => {
