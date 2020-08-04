@@ -28,7 +28,8 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.12",
     "sequelize-cli": "^6.2.0",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^4.2.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
