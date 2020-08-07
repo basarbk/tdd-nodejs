@@ -9,6 +9,7 @@ const tokenAuthentication = require('./middleware/tokenAuthentication');
 const FileService = require('./file/FileService');
 const config = require('config');
 const path = require('path');
+const HoaxRouter = require('./hoax/HoaxRouter');
 
 const { uploadDir, profileDir } = config;
 const profileFolder = path.join('.', uploadDir, profileDir);
@@ -45,6 +46,7 @@ app.use(tokenAuthentication);
 
 app.use(UserRouter);
 app.use(AuthenticationRouter);
+app.use(HoaxRouter);
 
 app.use(errorHandler);
 
