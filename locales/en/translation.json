@@ -23,5 +23,6 @@
   "profile_image_size": "Your profile image cannot be bigger than 2MB",
   "unsupported_image_file": "Only JPEG or PNG files are allowed",
   "unauthorized_hoax_submit": "You are not authorized to post hoax",
-  "hoax_submit_success": "Hoax is saved"
+  "hoax_submit_success": "Hoax is saved",
+  "hoax_content_size": "Hoax must be min 10 and max 5000 characters"
 }
