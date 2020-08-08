@@ -41,4 +41,6 @@ User.init(
 User.hasMany(Token, { onDelete: 'cascade', foreignKey: 'userId' });
 User.hasMany(Hoax, { onDelete: 'cascade', foreignKey: 'userId' });
 
+Hoax.belongsTo(User);
+
 module.exports = User;
