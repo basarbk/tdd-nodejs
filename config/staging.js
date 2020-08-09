@@ -16,4 +16,5 @@ module.exports = {
   },
   uploadDir: 'uploads-staging',
   profileDir: 'profile',
+  attachmentDir: 'attachment',
 };
