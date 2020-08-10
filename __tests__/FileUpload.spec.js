@@ -18,10 +18,10 @@ beforeEach(async () => {
   await FileAttachment.destroy({ truncate: true });
 });
 
-const uploadFile = () => {
+const uploadFile = (file = 'test-png.png') => {
   return request(app)
     .post('/api/1.0/hoaxes/attachments')
-    .attach('file', path.join('.', '__tests__', 'resources', 'test-png.png'));
+    .attach('file', path.join('.', '__tests__', 'resources', file));
 };
 
 describe('Upload File for Hoax', () => {
@@ -44,4 +44,42 @@ describe('Upload File for Hoax', () => {
     const filePath = path.join('.', uploadDir, attachmentDir, attachment.filename);
     expect(fs.existsSync(filePath)).toBe(true);
   });
+
+  it.each`
+    file              | fileType
+    ${'test-png.png'} | ${'image/png'}
+    ${'test-png'}     | ${'image/png'}
+    ${'test-gif.gif'} | ${'image/gif'}
+    ${'test-jpg.jpg'} | ${'image/jpeg'}
+    ${'test-pdf.pdf'} | ${'application/pdf'}
+    ${'test-txt.txt'} | ${null}
+  `('saves fileType as $fileType in attachment object when $file is uploaded', async ({ fileType, file }) => {
+    await uploadFile(file);
+    const attachments = await FileAttachment.findAll();
+    const attachment = attachments[0];
+    expect(attachment.fileType).toBe(fileType);
+  });
+  it.each`
+    file              | fileExtension
+    ${'test-png.png'} | ${'png'}
+    ${'test-png'}     | ${'png'}
+    ${'test-gif.gif'} | ${'gif'}
+    ${'test-jpg.jpg'} | ${'jpg'}
+    ${'test-pdf.pdf'} | ${'pdf'}
+    ${'test-txt.txt'} | ${null}
+  `(
+    'saves filename with extension $fileExtension in attachment object and stored object when $file is uploaded',
+    async ({ fileExtension, file }) => {
+      await uploadFile(file);
+      const attachments = await FileAttachment.findAll();
+      const attachment = attachments[0];
+      if (file === 'test-txt.txt') {
+        expect(attachment.filename.endsWith('txt')).toBe(false);
+      } else {
+        expect(attachment.filename.endsWith(fileExtension)).toBe(true);
+      }
+      const filePath = path.join('.', uploadDir, attachmentDir, attachment.filename);
+      expect(fs.existsSync(filePath)).toBe(true);
+    }
+  );
 });
