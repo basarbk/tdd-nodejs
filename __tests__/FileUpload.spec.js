@@ -119,4 +119,8 @@ describe('Upload File for Hoax', () => {
     expect(error.timestamp).toBeGreaterThan(nowInMillis);
     fs.unlinkSync(filePath);
   });
+  it('returns attachment id in response', async () => {
+    const response = await uploadFile();
+    expect(Object.keys(response.body)).toEqual(['id']);
+  });
 });
