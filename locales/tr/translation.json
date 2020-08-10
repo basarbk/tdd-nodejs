@@ -24,5 +24,6 @@
   "unsupported_image_file": "Sadece JPEG ya da PNG dosyalarını kullanabilirsiniz",
   "unauthorized_hoax_submit": "Efsane göndermeye yetkiniz bulunmamaktadır",
   "hoax_submit_success": "Efsaneniz kaydedildi",
-  "hoax_content_size": "Gönderiniz en az 10 en fazla 5000 karakter olmalı"
+  "hoax_content_size": "Gönderiniz en az 10 en fazla 5000 karakter olmalı",
+  "attachment_size_limit": "Yüklediğiniz dosya 5MB'dan büyük olamaz"
 }
