@@ -2,7 +2,6 @@ const request = require('supertest');
 const app = require('../src/app');
 const User = require('../src/user/User');
 const Token = require('../src/auth/Token');
-const sequelize = require('../src/config/database');
 const bcrypt = require('bcrypt');
 const en = require('../locales/en/translation.json');
 const tr = require('../locales/tr/translation.json');
@@ -34,9 +33,6 @@ beforeAll(async () => {
 
   await server.listen(config.mail.port, 'localhost');
 
-  if (process.env.NODE_ENV === 'test') {
-    await sequelize.sync();
-  }
   jest.setTimeout(20000);
 });
 

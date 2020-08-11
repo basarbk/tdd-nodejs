@@ -3,15 +3,8 @@ const app = require('../src/app');
 const User = require('../src/user/User');
 const Hoax = require('../src/hoax/Hoax');
 const FileAttachment = require('../src/file/FileAttachment');
-const sequelize = require('../src/config/database');
 const en = require('../locales/en/translation.json');
 const tr = require('../locales/tr/translation.json');
-
-beforeAll(async () => {
-  if (process.env.NODE_ENV === 'test') {
-    await sequelize.sync();
-  }
-});
 
 beforeEach(async () => {
   await FileAttachment.destroy({ truncate: true });

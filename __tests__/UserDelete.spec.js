@@ -3,16 +3,9 @@ const app = require('../src/app');
 const User = require('../src/user/User');
 const Token = require('../src/auth/Token');
 const Hoax = require('../src/hoax/Hoax');
-const sequelize = require('../src/config/database');
 const bcrypt = require('bcrypt');
 const en = require('../locales/en/translation.json');
 const tr = require('../locales/tr/translation.json');
-
-beforeAll(async () => {
-  if (process.env.NODE_ENV === 'test') {
-    await sequelize.sync();
-  }
-});
 
 beforeEach(async () => {
   await User.destroy({ truncate: { cascade: true } });
