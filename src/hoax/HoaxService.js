@@ -3,6 +3,7 @@ const User = require('../user/User');
 const NotFoundException = require('../error/NotFoundException');
 const FileService = require('../file/FileService');
 const FileAttachment = require('../file/FileAttachment');
+const ForbiddenException = require('../error/ForbiddenException');
 
 const save = async (body, user) => {
   const hoax = {
@@ -60,4 +61,20 @@ const getHoaxes = async (page, size, userId) => {
   };
 };
 
-module.exports = { save, getHoaxes };
+const deleteHoax = async (hoaxId, userId) => {
+  const hoaxToBeDeleted = await Hoax.findOne({
+    where: { id: hoaxId, userId: userId },
+    include: { model: FileAttachment },
+  });
+  if (!hoaxToBeDeleted) {
+    throw new ForbiddenException('unauthorized_hoax_delete');
+  }
+  const hoaxJSON = hoaxToBeDeleted.get({ plain: true });
+  if (hoaxJSON.fileAttachment !== null) {
+    await FileService.deleteAttachment(hoaxJSON.fileAttachment.filename);
+  }
+
+  await hoaxToBeDeleted.destroy();
+};
+
+module.exports = { save, getHoaxes, deleteHoax };

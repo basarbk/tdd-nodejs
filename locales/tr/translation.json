@@ -25,5 +25,6 @@
   "unauthorized_hoax_submit": "Efsane göndermeye yetkiniz bulunmamaktadır",
   "hoax_submit_success": "Efsaneniz kaydedildi",
   "hoax_content_size": "Gönderiniz en az 10 en fazla 5000 karakter olmalı",
-  "attachment_size_limit": "Yüklediğiniz dosya 5MB'dan büyük olamaz"
+  "attachment_size_limit": "Yüklediğiniz dosya 5MB'dan büyük olamaz",
+  "unauthorized_hoax_delete": "Bu efsaneyi silme yetkiniz bulunmamaktadır"
 }
